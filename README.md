@@ -19,7 +19,7 @@ SMS is a fully functional pipeline, which performs *de novo* transcriptome assem
 (1) Download the transcriptome data from NCBI database using the SRA accession number, then run the *de novo* transcriptome assembly tool Trinity.  
 `both_fastq-dump_trinity.sh SRR_accession_number`
 
-(2) The transcriptome assembly is translated into amino acid sequences, to be used as input query sequences for HMMER to detect sequence homologs 
+(2) Translates the transcriptome assembly into amino acid sequences, to be used as input query sequences for HMMER to detect sequence homologs 
 to known spidroin protein structures with the profile HMMs. The outputs should contain only putative spidroin sequences.  
 `search_spidroin.sh SRR_accession_number`
   
