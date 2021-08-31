@@ -1,31 +1,25 @@
 #!/bin/bash --login
-#$ -l mem256
-#$ -pe smp.pe 16 # … reserves 16 cores
-#$ -j y
-#$ -o logs_researchproject2
 #$ -hold_jid both_fastq-dump_trinity.sh
-
-#qsub search_spidroin.sh ERR356424
 
 module load apps/anaconda3/5.2.0/bin
 source activate software
 module load apps/samtools/1.9/gcc-4.8.5
 
-cd /net/scratch2/a73590hl/data/$1
+cd /data/$1
 
 #translate6frames to amino acid
-/mnt/iusers01/sbc01/a73590hl/software/bbmap/translate6frames.sh in=trinity_assembly_$1.Trinity.fasta tag=t out=bbmap_translate_manylines_$1_prot.fa
+translate6frames.sh in=trinity_assembly_$1.Trinity.fasta tag=t out=bbmap_translate_manylines_$1_prot.fa
 
 #concatenate bbmap aa-sequence output from multiple lines to single lines
 awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < bbmap_translate_manylines_$1_prot.fa > bbmap_translate_$1_prot.fa
 
 #HMMER 3.1b1 (Eddy, 2011) hmmsearch
 
-hmmsearch -o hmmer_$1_RP1-2.report -A hmmer_$1_RP1-2.aln --tblout hmmer_$1_RP1-2.txt --cpu $NSLOTS /mnt/iusers01/sbc01/a73590hl/software/silkpipe/RP1-2.hmm bbmap_translate_$1_prot.fa
+hmmsearch -o hmmer_$1_RP1-2.report -A hmmer_$1_RP1-2.aln --tblout hmmer_$1_RP1-2.txt --cpu $NSLOTS RP1-2.hmm bbmap_translate_$1_prot.fa
 
-hmmsearch -o hmmer_$1_Spidroin_MaSp.report -A hmmer_$1_Spidroin_MaSp.aln --tblout hmmer_$1_Spidroin_MaSp.txt --cpu $NSLOTS /mnt/iusers01/sbc01/a73590hl/software/silkpipe/Spidroin_MaSp.hmm bbmap_translate_$1_prot.fa
+hmmsearch -o hmmer_$1_Spidroin_MaSp.report -A hmmer_$1_Spidroin_MaSp.aln --tblout hmmer_$1_Spidroin_MaSp.txt --cpu $NSLOTS Spidroin_MaSp.hmm bbmap_translate_$1_prot.fa
 
-hmmsearch -o hmmer_$1_Spidroin_N.report -A hmmer_$1_Spidroin_N.aln --tblout hmmer_$1_Spidroin_N.txt --cpu $NSLOTS /mnt/iusers01/sbc01/a73590hl/software/silkpipe/Spidroin_N.hmm bbmap_translate_$1_prot.fa
+hmmsearch -o hmmer_$1_Spidroin_N.report -A hmmer_$1_Spidroin_N.aln --tblout hmmer_$1_Spidroin_N.txt --cpu $NSLOTS Spidroin_N.hmm bbmap_translate_$1_prot.fa
 
 #grep trinity from hmmer
 grep -v "#" hmmer_$1_Spidroin_N.txt | awk '{print $1}' | sort | uniq > matches_uniq_$1_Spidroin_N.txt
