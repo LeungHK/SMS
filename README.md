@@ -3,6 +3,9 @@ Spidroin-Motif-Searcher
 # Author
 Leung Ho Kwan
 
+# About
+SMS is a fully functional pipeline, which performs *de novo* transcriptome assembly with the RNA-seq dataset of individual spider species, then searches the constructed transcripts to identify and catalogue putative spidroin sequences and repetitive motifs contained within.
+
 # Input
 (1) SRR accession number of transcriptome data from RNA-Seq  
   
@@ -13,7 +16,7 @@ Leung Ho Kwan
 
 # To Run:
 
-(1) Downloads the transcriptome data from NCBI database using the SRA accession number, then runs the de novo transcriptome assembly tool Trinity.  
+(1) Downloads the transcriptome data from NCBI database using the SRA accession number, then runs the *de novo* transcriptome assembly tool Trinity.  
 `both_fastq-dump_trinity.sh SRR_accession_number`
 
 (2) The transcriptome assembly is translated into amino acid sequences, to be used as input query sequences for HMMER to detect sequence homologs 
