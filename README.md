@@ -7,7 +7,7 @@ Leung Ho Kwan
 SMS is a fully functional pipeline, which performs *de novo* transcriptome assembly with the RNA-seq dataset of individual spider species, then searches the constructed transcripts to identify and catalogue putative spidroin sequences and repetitive motifs contained within.
 
 # Input
-(1) SRA accession number of transcriptome data from RNA-Seq  
+(1) SRA accession of transcriptome data from RNA-Seq  
   
 (2) Profile Hidden Markov Models (profile HMMs) of conserved spidroin domains:   
 * RP1-2.hmm  
