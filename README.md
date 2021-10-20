@@ -33,3 +33,4 @@ The outputs are motif logos, alignment of motifs to the queried amino acid seque
 (5) Calculate the sequence coverage of the putative spidroin sequences by the RNA-seq reads, 
 to visualize the number of reads matching each position in the assembled transcript in Rstudio.  
 `get_coverage.sh SRA_accession`
+sequence_coverage.R
